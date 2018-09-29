@@ -22,7 +22,21 @@ func TestStorageCdnCluster(t *testing.T) {
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "foo",
 			Namespace: "default",
-		}}
+		},
+		Spec: CdnClusterSpec{
+			Role: "balancer",
+			Sources: []CdnClusterSource{
+				{
+					Name:          "cache-live",
+					PathCondition: "^/live/",
+				},
+				{
+					Name:          "cache-vod",
+					PathCondition: "^/vod/",
+				},
+			},
+		},
+	}
 	g := gomega.NewGomegaWithT(t)
 
 	// Test Create

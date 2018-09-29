@@ -31,8 +31,6 @@ spec:
           properties:
             state:
               type: string
-          required:
-          - state
           type: object
   version: v1
 status:

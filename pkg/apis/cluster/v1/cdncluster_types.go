@@ -20,7 +20,7 @@ type CdnClusterSpec struct {
 // CdnClusterStatus defines the observed state of CdnCluster
 type CdnClusterStatus struct {
 	// State of the CDN cluster
-	State string `json:"state"`
+	State string `json:"state,omitempty"`
 }
 
 // +genclient

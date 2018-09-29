@@ -13,14 +13,14 @@ import (
 
 // CdnClusterSpec defines the desired state of CdnCluster
 type CdnClusterSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Role of the CDN cluster, can be 'balancer' or 'cache'
+	Role string `json:"role"`
 }
 
 // CdnClusterStatus defines the observed state of CdnCluster
 type CdnClusterStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// State of the CDN cluster
+	State string `json:"state"`
 }
 
 // +genclient

@@ -11,10 +11,21 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+// CdnClusterSource defines a source cluster of a cluster
+type CdnClusterSource struct {
+	// The name of the source cluster
+	Name string `json:"name"`
+	// The path condition to enter this cluster,
+	// can be omitted for the default source
+	PathCondition string `json:"pathCondition,omitempty"`
+}
+
 // CdnClusterSpec defines the desired state of CdnCluster
 type CdnClusterSpec struct {
-	// Role of the CDN cluster, can be 'balancer' or 'cache'
+	// Role must be 'balancer' or 'cache'
 	Role string `json:"role"`
+	// Sources is the list of source clusters for this cluster
+	Sources []CdnClusterSource `json:"sources"`
 }
 
 // CdnClusterStatus defines the observed state of CdnCluster

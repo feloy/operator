@@ -24,8 +24,20 @@ spec:
           properties:
             role:
               type: string
+            sources:
+              items:
+                properties:
+                  name:
+                    type: string
+                  pathCondition:
+                    type: string
+                required:
+                - name
+                type: object
+              type: array
           required:
           - role
+          - sources
           type: object
         status:
           properties:

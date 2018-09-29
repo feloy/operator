@@ -1,9 +1,31 @@
 apiVersion: cluster.anevia.com/v1
 kind: CdnCluster
 metadata:
-  labels:
-    controller-tools.k8s.io: "1.0"
-  name: cdncluster-sample
+  name: balancer
 spec:
-  # Add fields here
-  foo: bar
+  role: balancer
+  sources:
+  - name: cache-live
+    pathCondition: ^/live/
+  - name: cache-vod
+    pathCondition: ^/vod/
+
+---
+
+apiVersion: cluster.anevia.com/v1
+kind: CdnCluster
+metadata:
+  name: cache-live
+spec:
+  role: cache
+  sources: []
+
+---
+
+apiVersion: cluster.anevia.com/v1
+kind: CdnCluster
+metadata:
+  name: cache-vod
+spec:
+  role: cache
+  sources: []

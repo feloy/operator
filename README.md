@@ -632,6 +632,8 @@ g.Eventually(func() error {
 }, timeout).Should(gomega.Succeed())
 ```
 
+`8d10c42`
+
 ## Adding dependencies between CdnCluster
 
 As defined in the `CdnClusterSpec`, a CdnCluster relies on sources. We would like the operator to wait that the sources of a CdnCluster are created before it creates the CdnCluster itself.
@@ -706,6 +708,8 @@ The different things to modify in the operator are:
   }
   ```
   In this case, the namespace and name passed as argument to the Reconcile function will be those of the CDN clusters parent of the modified CDN cluster.
+
+`c39cd61`
 
 ## Testing the CdnCluster dependencies
 

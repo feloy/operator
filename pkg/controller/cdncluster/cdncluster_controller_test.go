@@ -15,6 +15,7 @@ import (
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/client-go/tools/record"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
@@ -45,7 +46,7 @@ func TestReconcile(t *testing.T) {
 	g.Expect(err).NotTo(gomega.HaveOccurred())
 	c = mgr.GetClient()
 
-	recFn, requests := SetupTestReconcile(newReconciler(mgr))
+	recFn, requests := SetupTestReconcile(newReconciler(mgr, record.NewFakeRecorder(1024)))
 	g.Expect(add(mgr, recFn)).NotTo(gomega.HaveOccurred())
 	defer close(StartTestManager(mgr, g))
 
@@ -86,7 +87,7 @@ func TestReconcile2(t *testing.T) {
 	g.Expect(err).NotTo(gomega.HaveOccurred())
 	c := mgr.GetClient()
 
-	recFn, requests := SetupTestReconcile(newReconciler(mgr))
+	recFn, requests := SetupTestReconcile(newReconciler(mgr, record.NewFakeRecorder(1024)))
 	g.Expect(add(mgr, recFn)).NotTo(gomega.HaveOccurred())
 	defer close(StartTestManager(mgr, g))
 
@@ -145,7 +146,7 @@ func TestReconcileCreatedAfterSource(t *testing.T) {
 	mgr, err := manager.New(cfg, manager.Options{})
 	g.Expect(err).NotTo(gomega.HaveOccurred())
 	c := mgr.GetClient()
-	recFn, requests := SetupTestReconcile(newReconciler(mgr))
+	recFn, requests := SetupTestReconcile(newReconciler(mgr, record.NewFakeRecorder(1024)))
 	g.Expect(add(mgr, recFn)).NotTo(gomega.HaveOccurred())
 	defer close(StartTestManager(mgr, g))
 

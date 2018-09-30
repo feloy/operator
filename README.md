@@ -816,6 +816,7 @@ func TestReconcileCreatedAfterSource(t *testing.T) {
   }, timeout).Should(gomega.Succeed())
 }
 ```
+`9a3f67d`
 
 ## Sending Events
 
@@ -831,14 +832,20 @@ type ReconcileCdnCluster struct {
   recorder record.EventRecorder
 }
 ```
-Second, get the recorder from the `Manager`:
+Second, get the recorder from the `Manager`.
+
+To be able to fake the recorder, we can pass a recorder as argument to the newReconciler method. This way, we will be able to pass the mgr.GetRecorder("CdnCluster") one during real execution, and a fake recorder during tests:
+
 ```go
-// newReconciler returns a new reconcile.Reconciler
-func newReconciler(mgr manager.Manager) reconcile.Reconciler {
+func Add(mgr manager.Manager) error {
+  return add(mgr, newReconciler(mgr, mgr.GetRecorder("CdnCluster")))
+ }
+
+func newReconciler(mgr manager.Manager, recorder record.EventRecorder) reconcile.Reconciler {
   return &ReconcileCdnCluster{
     Client:   mgr.GetClient(),
     scheme:   mgr.GetScheme(),
-    recorder: mgr.GetRecorder("CdnCluster"),
+    recorder: recorder,
   }
 }
 ```

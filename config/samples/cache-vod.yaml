@@ -1,0 +1,7 @@
+apiVersion: cluster.anevia.com/v1
+kind: CdnCluster
+metadata:
+  name: cache-vod
+spec:
+  role: cache
+  sources: []

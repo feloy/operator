@@ -1,0 +1,11 @@
+apiVersion: cluster.anevia.com/v1
+kind: CdnCluster
+metadata:
+  name: balancer
+spec:
+  role: balancer
+  sources:
+  - name: cache-live
+    pathCondition: ^/live/
+  - name: cache-vod
+    pathCondition: ^/vod/

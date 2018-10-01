@@ -867,6 +867,8 @@ if err != nil {
 r.recorder.Eventf(instance, "Normal", "DeploymentCreated", "The Deployment %s has been created", deploy.Name)
 ```
 
+`7dd8a2e`
+
 ## A demo with Events
 
 Start the operator from outside the cluster:
